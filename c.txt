@@ -1,0 +1,560 @@
+[1]
+
+Course Name: DIFFERENTIAL CALCULUS & CO-ORDINATE GEOMETRY
+
+Code: MAT1102
+
+Credits: 3
+
+Prerequisites = None
+
+[2]
+
+Course Name: PHYSICS 1
+
+Code: PHY1101
+
+Credits: 3
+
+Prerequisites = None
+
+[3]
+
+Course Name: PHYSICS 1 LAB
+
+Code: PHY1102
+
+Credits: 1
+
+Prerequisites = None
+
+
+[4]
+
+Course Name: ENGLISH READING SKILLS & PUBLIC SPEAKING
+
+Code: ENG1101
+
+Credits: 3
+
+Prerequisites = None
+
+[5]
+
+Course Name: INTRODUCTION TO PROGRAMMING
+
+Code: CSC1102
+
+Credits: 3
+
+Prerequisites = None
+
+[6]
+
+Course Name: INTRODUCTION TO PROGRAMMING LAB
+
+Code: CSC1103
+
+Credits: 1
+
+Prerequisites = None
+
+[7]
+
+Course Name: INTRODUCTION TO COMPUTER STUDIES
+
+Code: CSC1101
+
+Credits: 1
+
+Prerequisites = None
+
+[8]
+
+Course Name: DISCRETE MATHEMATICS
+
+Code: CSC1204
+
+Credits: 3
+
+Prerequisites = MAT1102, CSC1102
+
+[9]
+
+Course Name: INTEGRAL CALCULUS & ORDINARY DIFFERENTIAL EQUATIONS
+
+Code: MAT1205
+
+Credits: 3
+
+Prerequisites = MAT1102
+
+[10]
+
+Course Name: OBJECT ORIENTED PROGRAMMING 1
+
+Code: CSC1205
+
+Credits: 3
+
+Prerequisites = CSC1102, CSC1103
+
+[11]
+
+Course Name: PHYSICS 2
+
+Code: PHY1203
+
+Credits: 3
+
+Prerequisites = PHY1101
+
+[12]
+
+Course Name: PHYSICS 2 LAB
+
+Code: PHY1204
+
+Credits: 1
+
+Prerequisites = PHY1102
+
+[13]
+
+Course Name: ENGLISH WRITING SKILLS & COMMUNICATION
+
+Code: ENG1202
+
+Credits: 3
+
+Prerequisites = ENG1101
+
+[14]
+
+Course Name: INTRODUCTION TO ELECTRICAL CIRCUITS
+
+Code: COE2101
+
+Credits: 3
+
+Prerequisites = PHY1101
+
+[15]
+
+Course Name: INTRODUCTION TO ELECTRICAL CIRCUITS LAB
+
+Code: COE2102
+
+Credits: 1
+
+Prerequisites = PHY1102
+
+[16]
+
+Course Name: CHEMISTRY
+
+Code: CHEM1101
+
+Credits: 3
+
+Prerequisites = PHY1203
+
+[17]
+
+Course Name: COMPLEX VARIABLE, LAPLACE & Z-TRANSFORMATION
+
+Code: MAT2101
+
+Credits: 3
+
+Prerequisites = MAT1205
+
+[18]
+
+Course Name: INTRODUCTION TO DATABASE
+
+Code: CSC2108
+
+Credits: 3
+
+Prerequisites = CSC1205
+
+[19]
+
+Course Name: ELECTRONIC DEVICES LAB
+
+Code: EEE2104
+
+Credits: 1
+
+Prerequisites = COE2102
+
+[20]
+
+Course Name: PRINCIPLES OF ACCOUNTING
+
+Code: BBA1102
+
+Credits: 3
+
+Prerequisites = MAT1205
+
+[21]
+
+Course Name: ELECTRONIC DEVICES
+
+Code: EEE2103
+
+Credits: 3
+
+Prerequisites = COE2101
+
+[22]
+
+Course Name: DATA STRUCTURE
+
+Code: CSC2106
+
+Credits: 3
+
+Prerequisites = CSC1204, CSC1205
+
+[23]
+
+Course Name: DATA STRUCTURE LAB
+
+Code: CSC2107
+
+Credits: 1
+
+Prerequisites = CSC1204, CSC1205
+
+[24]
+
+Course Name: COMPUTER AIDED DESIGN & DRAFTING
+
+Code: BAE2101
+
+Credits: 1
+
+Prerequisites = None
+
+[25]
+
+Course Name: ALGORITHMS
+
+Code: CSC2211
+
+Credits: 3
+
+Prerequisites = CSC2106, CSC2107
+
+[26]
+
+Course Name: MATRICES, VECTORS, FOURIER ANALYSIS
+
+Code: MAT2202
+
+Credits: 3
+
+Prerequisites = MAT2101
+
+[27]
+
+Course Name: OBJECT ORIENTED PROGRAMMING 2
+
+Code: CSC2210
+
+Credits: 3
+
+Prerequisites = CSC2108, CSC1205
+
+[28]
+
+Course Name: OBJECT ORIENTED ANALYSIS AND DESIGN
+
+Code: CSC2209
+
+Credits: 3
+
+Prerequisites = CSC2108
+
+[29]
+
+Course Name: BANGLADESH STUDIES
+
+Code: BAS2101
+
+Credits: 3
+
+Prerequisites = CSC1101
+
+[30]
+
+Course Name: DIGITAL LOGIC AND CIRCUITS
+
+Code: EEE3101
+
+Credits: 3
+
+Prerequisites = EEE2103
+
+[31]
+
+Course Name: DIGITAL LOGIC AND CIRCUITS LAB
+
+Code: EEE3102
+
+Credits: 1
+
+Prerequisites = EEE2104
+
+[32]
+
+Course Name: COMPUTATIONAL STATISTICS AND PROBABILITY
+
+Code: MAT3103
+
+Credits: 3
+
+Prerequisites = MAT2101
+
+[33]
+
+Course Name: THEORY OF COMPUTATION
+
+Code: CSC3113
+
+Credits: 3
+
+Prerequisites = CSC2211
+
+[34]
+
+Course Name: PRINCIPLES OF ECONOMICS
+
+Code: ECO3150
+
+Credits: 2
+
+Prerequisites = MAT3103
+
+[35]
+
+Course Name: BUSINESS COMMUNICATION
+
+Code: ENG2103
+
+Credits: 3
+
+Prerequisites = BAS2101
+
+[36]
+
+Course Name: NUMERICAL METHODS FOR SCIENCE AND ENGINEERING
+
+Code: MAT3101
+
+Credits: 3
+
+Prerequisites = MAT2202
+
+[37]
+
+Course Name: DATA COMMUNICATION
+
+Code: COE3103
+
+Credits: 3
+
+Prerequisites = EEE3101, EEE3102
+
+[38]
+
+Course Name: MICROPROCESSOR AND EMBEDDED SYSTEM
+
+Code: COE3104
+
+Credits: 3
+
+Prerequisites = EEE3101, EEE3102
+
+[39]
+
+Course Name: SOFTWARE ENGINEERING
+
+Code: CSC3112
+
+Credits: 3
+
+Prerequisites = CSC2209, CSC2210
+
+[40]
+
+Course Name: ARTIFICIAL INTELLIGENCE AND EXPERT SYS.
+
+Code: CSC3217
+
+Credits: 3
+
+Prerequisites = CSC2211, MAT3103
+
+[41]
+
+Course Name: COMPUTER NETWORKS
+
+Code: COE3206
+
+Credits: 3
+
+Prerequisites = COE3103
+
+[42]
+
+Course Name: COMPUTER ORGANIZATION AND ARCHITECTURE
+
+Code: COE3205
+
+Credits: 3
+
+Prerequisites = COE3104
+
+[43]
+
+Course Name: OPERATING SYSTEM
+
+Code: CSC3214
+
+Credits: 3
+
+Prerequisites = CSC2211, COE3104
+
+[44]
+
+Course Name: WEB TECHNOLOGIES
+
+Code: CSC3215
+
+Credits: 3
+
+Prerequisites = CSC3112
+
+[45]
+
+Course Name: ENGINEERING ETHICS
+
+Code: EEE2216
+
+Credits: 2
+
+Prerequisites = CSC3112, COE3104
+
+[46]
+
+Course Name: COMPILER DESIGN
+
+Code: CSC3216
+
+Credits: 3
+
+Prerequisites = CSC3113
+
+[47]
+
+Course Name: COMPUTER GRAPHICS
+
+Code: CSC4118
+
+Credits: 3
+
+Prerequisites = CSC2211, MAT2202
+
+[48]
+
+Course Name: COS ELECTIVE 1
+
+Code: CSC****
+
+Credits: 3
+
+Prerequisites = None
+
+[49]
+
+Course Name: ENGINEERING MANAGEMENT
+
+Code: MGT3202
+
+Credits: 3
+
+Prerequisites = EEE2216
+
+[50]
+
+Course Name: RESEARCH METHODOLOGY
+
+Code: CSC4197
+
+Credits: 3
+
+Prerequisites = None
+
+[51]
+
+Course Name: CSE MAJOR 1
+
+Code: CSC####
+
+Credits: 3
+
+Prerequisites = None
+
+[52]
+
+Course Name: CSE MAJOR 2
+
+Code: CSC####
+
+Credits: 3
+
+Prerequisites = None
+
+[53]
+
+Course Name: CSE MAJOR 3
+
+Code: CSC####
+
+Credits: 3
+
+Prerequisites = None
+
+[54]
+
+Course Name: THESIS / PROJECT
+
+Code: CSC4298
+
+Credits: 3
+
+Prerequisites = CSC4197
+
+[55]
+
+Course Name: COS ELECTIVE 2
+
+Code: CSC****
+
+Credits: 3
+
+Prerequisites = None
+
+[56]
+
+Course Name: INTERNSHIP
+
+Code: CSC4299
+
+Credits: 3
+
+Prerequisites = None

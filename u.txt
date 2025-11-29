@@ -1,0 +1,19 @@
+ID:1
+
+[1]
+id: 1
+password: 300
+name: Ibrar Amin
+address: dnad
+number: 0
+email: Ibrar@gmail.com
+dob: 2000-01-01
+blood_group: a+
+religion: Islam
+type: student
+semester: 1
+gpa: 0.0
+dept: Computer Science
+current_courses: []
+past_courses: []
+
