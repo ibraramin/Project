@@ -1,162 +1,195 @@
 import requests
-import time
+from helper import *
 from classes import BloodGroup, Religion, Level, Department
-from helper import print_enum_choice, printChoice, prettyPrint, coloredPrint
 
-URL = "http://127.0.0.1:8000"
+url = "http://127.0.0.1:8000"
 
 
-def collect_base_class_info():
-    print("\n--- Personal Details ---")
-    name = input("Name: ")
-    pwd = input("Password: ")
-    addr = input("Address: ")
-    email = input("Email: ")
-    bg = print_enum_choice(BloodGroup, "Blood Group")
-    rel = print_enum_choice(Religion, "Religion")
-    return {
-        "name": name,
-        "password": pwd,
-        "address": addr,
-        "email": email,
-        "blood_group": bg,
-        "religion": rel,
+def call_login():
+    big_print("Login")
+    id = int(input("User ID: "))
+    password = input("Password: ")
+    response = requests.post(f"{url}/login", json={"id": id, "password": password})
+    if response.status_code == 200:
+        user = response.json()["user"]
+        colored_print(f"Welcome {user['name']}", "green")
+        user_dashboard(user)
+    else:
+        colored_print("Login Failed", "red")
+
+
+def call_register():
+    big_print("Register")
+    print("\n1. Student\n2. Faculty")
+    choice = input("Select type: ")
+
+    data = {
+        "name": input("Name: "),
+        "password": input("Password: "),
+        "address": input("Address: "),
+        "email": input("Email: "),
+        "blood_group": select_enum(BloodGroup),
+        "religion": select_enum(Religion),
     }
 
-
-def register():
-    print("\n--- Register ---")
-    print("1. Student")
-    print("2. Faculty")
-    type_choice = input("Select type: ")
-
-    data = collect_base_class_info()
-    endpoint = ""
-
-    if type_choice == "1":
+    if choice == "1":
+        data["semester"] = int(input("Semester: ") or 1)
+        data["dept"] = select_enum(Department)
         endpoint = "/register/student"
-        data["semester"] = int(input("Semester (1-8): ") or 1)
-        data["dept"] = print_enum_choice(Department, "Department")
-    elif type_choice == "2":
-        endpoint = "/register/faculty"
+    elif choice == "2":
         data["salary"] = int(input("Salary: ") or 0)
-        data["level"] = print_enum_choice(Level, "Level")
-        data["dept"] = print_enum_choice(Department, "Department")
+        data["level"] = select_enum(Level)
+        data["dept"] = select_enum(Department)
+        endpoint = "/register/faculty"
     else:
-        print("Invalid user type selection.")
         return
 
-    try:
-        response = requests.post(f"{URL}{endpoint}", json=data)
-        if response.status_code == 200:
-            user = response.json()
-            coloredPrint(f"\nSuccess! Your User ID is: {user['id']}", "green")
-            print("Please remember this ID to login.")
+    response = requests.post(f"{url}{endpoint}", json=data)
+    if response.status_code == 200:
+        colored_print(f"Registered! ID: {response.json()['id']}", "green")
+    else:
+        print("Error:", response.text)
+
+
+def user_dashboard(user):
+    while True:
+        big_print("Dashboard")
+        print(f"\n{user['type']} Menu")
+
+        if user["type"] == "student":
+            ops = [
+                "View Info",
+                "Edit Info",
+                "Add Course",
+                "Drop Course",
+                "Retake Course",
+                "Logout",
+            ]
         else:
-            print(f"Error {response.status_code}: {response.text}")
-    except requests.exceptions.ConnectionError:
-        coloredPrint("Cannot connect to server. Is main.py running?", "red")
+            ops = ["View Info", "Edit Info", "Add Marks", "Logout"]
+
+        sel = get_choice(ops)
+
+        if sel == "1":
+            big_print("User Info")
+            for k, v in user.items():
+                if v and k not in ["current_courses", "results"]:
+                    print(f"{k}: {v}")
+            if "current_courses" in user:
+                print(f"Courses: {user['current_courses']}")
+            if "results" in user:
+                print(f"Results: {user['results']}")
+
+        elif sel == "2":
+            user = edit_user(user)
+
+        elif sel == "3":
+            if user["type"] == "student":
+                enroll_course(user, retake_mode=False)
+            else:
+                upload_marks()
+
+        elif sel == "4":
+            if user["type"] == "student":
+                drop_course(user)
+            else:
+                break
+
+        elif sel == "5":
+            if user["type"] == "student":
+                enroll_course(user, retake_mode=True)
+            else:
+                pass
+
+        elif user["type"] == "student" and sel == "6":
+            break
 
 
-def edit_user(user_data):
-    prettyPrint("Edit Mode")
-    print(f"Editing: {user_data['name']} ({user_data['type']})")
-
-    new_data = {}
-
-    name = input(f"Name [{user_data['name']}]: ")
+def edit_user(user):
+    updates = {}
+    name = input(f"Name [{user['name']}]: ")
     if name:
-        new_data["name"] = name
+        updates["name"] = name
 
-    addr = input(f"Address [{user_data['address']}]: ")
-    if addr:
-        new_data["address"] = addr
+    res = requests.put(f"{url}/user/{user['id']}", json=updates)
+    if res.status_code == 200:
+        colored_print("Updated!", "green")
+        return res.json()["data"]
+    return user
 
-    email = input(f"Email [{user_data.get('email', '')}]: ")
-    if email:
-        new_data["email"] = email
 
-    if user_data["type"] == "faculty":
-        sal = input(f"Salary [{user_data.get('salary', 0)}]: ")
-        if sal:
-            new_data["salary"] = int(sal)
+def enroll_course(user, retake_mode=False):
+    res = requests.get(f"{url}/available_courses/{user['id']}")
+    data = res.json()
+    courses = data.get("retake", []) if retake_mode else data.get("available", [])
 
-    if user_data["type"] == "student":
-        gpa = input(f"GPA [{user_data.get('gpa', 0.0)}]: ")
-        if gpa:
-            new_data["gpa"] = float(gpa)
-
-    if not new_data:
-        print("No changes made.")
+    if not courses:
+        colored_print("No courses available.", "red")
         return
 
-    try:
-        res = requests.put(f"{URL}/update/user/{user_data['id']}", json=new_data)
+    title = "Retake List" if retake_mode else "Available Courses"
+    print(f"\n--- {title} ---")
+    for i, c in enumerate(courses, 1):
+        print(f"{i}. {c['Code']} - {c['Name']} (Pre: {c['Prerequisites']})")
+
+    idx = input("Select course number: ")
+    if idx.isdigit() and 0 < int(idx) <= len(courses):
+        code = courses[int(idx) - 1]["Code"]
+        res = requests.post(
+            f"{url}/enroll", json={"student_id": user["id"], "course_code": code}
+        )
         if res.status_code == 200:
-            coloredPrint("Update Successful!", "green")
-            
-            return res.json().get("data")
+            colored_print("Enrolled!", "green")
+            user["current_courses"].append(code)
         else:
-            print("Update failed:", res.text)
-    except Exception as e:
-        print("Error:", e)
-    return user_data
+            colored_print(res.json()["detail"], "red")
 
 
-def login():
-    print("\n--- Login ---")
-    try:
-        uid_input = input("User ID: ")
-        if not uid_input.isdigit():
-            print("ID must be a number.")
-            return
-        uid = int(uid_input)
-        pwd = input("Password: ")
-    except ValueError:
-        print("Invalid input.")
+def drop_course(user):
+    if not user["current_courses"]:
+        colored_print("No active courses to drop.", "red")
         return
 
-    try:
-        res = requests.post(f"{URL}/login", json={"id": uid, "password": pwd})
+    print("\n--- Drop Course ---")
+    for i, code in enumerate(user["current_courses"], 1):
+        print(f"{i}. {code}")
+
+    idx = input("Select course to drop: ")
+    if idx.isdigit() and 0 < int(idx) <= len(user["current_courses"]):
+        code = user["current_courses"][int(idx) - 1]
+        res = requests.post(
+            f"{url}/drop_course", json={"student_id": user["id"], "course_code": code}
+        )
         if res.status_code == 200:
-            data = res.json()
-            user = data["user"]
-            coloredPrint(data["message"], "green")
-
-            while True:
-                print(f"\n--- User Menu ({user['type'].upper()}) ---")
-                act = printChoice(["View Info", "Edit Info", "Logout"])
-
-                if act == "1":
-                    print("\n--- Your Data ---")
-                    for k, v in user.items():
-                        if (
-                            k not in ["current_courses", "past_courses"]
-                            and v is not None
-                        ):
-                            print(f"{k.replace('_', ' ').title()}: {v}")
-                elif act == "2":
-                    updated_user = edit_user(user)
-                    if updated_user:
-                        user = updated_user
-                elif act == "3":
-                    break
+            colored_print("Dropped!", "green")
+            user["current_courses"].remove(code)
         else:
-            coloredPrint("Login Failed: Wrong ID or Password", "red")
-    except requests.exceptions.ConnectionError:
-        print("Connection failed. Make sure the server is running.")
+            colored_print(res.json()["detail"], "red")
+
+
+def upload_marks():
+    sid = int(input("Student ID: "))
+    code = input("Course Code: ")
+    marks = int(input("Marks: "))
+
+    res = requests.post(
+        f"{url}/upload_marks",
+        json={"student_id": sid, "course_code": code, "marks": marks},
+    )
+    if res.status_code == 200:
+        colored_print(f"Done. GPA: {res.json()['gpa']}", "green")
+    else:
+        colored_print(res.json()["detail"], "red")
 
 
 if __name__ == "__main__":
-    prettyPrint("Uni System")
+    big_print("Uni System")
     while True:
-        print("\n--- Main Menu ---")
-        op = printChoice(["Login", "Register", "Quit"])
-
-        if op == "1":
-            login()
-        elif op == "2":
-            register()
-        elif op == "3":
-            print("Goodbye!")
+        print("\n--- MAIN MENU ---")
+        c = get_choice(["Login", "Register", "Exit"])
+        if c == "1":
+            call_login()
+        elif c == "2":
+            call_register()
+        elif c == "3":
             break

@@ -1,39 +1,52 @@
-from pyfiglet import Figlet
 from termcolor import colored
+from pyfiglet import Figlet
 
 
-def printChoice(choices: list):
-    for x, choice in enumerate(choices):
-        print(f"{x+1}. {choice}")
+def big_print(text):
+    print(colored(Figlet(font="slant").renderText(text), "cyan"))
+
+
+def colored_print(text, color="cyan"):
+    try:
+        print(colored(text, color))
+    except:
+        print(text)
+
+
+def get_choice(options):
+    for i, opt in enumerate(options, 1):
+        print(f"{i}. {opt}")
     return input("Enter choice: ")
 
 
-def print_enum_choice(enum_cls, prompt):
-    print(f"\n--- Select {prompt} ---")
-    options = [e.value for e in enum_cls if e.name != "pending"]
-    for i, opt in enumerate(options, 1):
+def select_enum(enum_cls):
+    print(f"\nSelect {enum_cls.__name__}:")
+    opts = [e.value for e in enum_cls if e.name != "pending"]
+    for i, opt in enumerate(opts, 1):
         print(f"{i}. {opt}")
-
-    while True:
-        sel = input("Select number (or enter to skip): ")
-        if not sel:
-            return "pending"
-        if sel.isdigit() and 1 <= int(sel) <= len(options):
-            return options[int(sel) - 1]
-        print("Invalid selection, try again.")
+    sel = input("Choice (enter to skip): ")
+    return (
+        opts[int(sel) - 1]
+        if sel.isdigit() and 1 <= int(sel) <= len(opts)
+        else "pending"
+    )
 
 
-def prettyPrint(text: str, color: str = "cyan"):
-    try:
-        f = Figlet(font="slant")
-        text = f.renderText(text)
-        print(colored(text, color, attrs=["bold"]))
-    except:
-        print(text)
-
-
-def coloredPrint(text: str, color: str = "cyan"):
-    try:
-        print(colored(text, color=color, attrs=["bold"]))
-    except:
-        print(text)
+def calculate_gpa(marks):
+    if marks >= 90:
+        return 4.00
+    elif marks >= 85:
+        return 3.75
+    elif marks >= 80:
+        return 3.50
+    elif marks >= 75:
+        return 3.25
+    elif marks >= 70:
+        return 3.00
+    elif marks >= 65:
+        return 2.75
+    elif marks >= 60:
+        return 2.50
+    elif marks >= 50:
+        return 2.25
+    return 0.00

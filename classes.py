@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Dict
 from pydantic import BaseModel, Field
 
 
@@ -52,6 +52,7 @@ class User(BaseModel):
     blood_group: BloodGroup = BloodGroup.pending
     religion: Religion = Religion.pending
     type: str = "user"
+    pfp: str = "pfps/default.jpeg"
 
 
 class Student(User):
@@ -61,6 +62,7 @@ class Student(User):
     dept: Department = Department.pending
     current_courses: List[str] = Field(default_factory=list)
     past_courses: List[str] = Field(default_factory=list)
+    results: Dict[str, float] = Field(default_factory=dict)
 
 
 class Faculty(User):
@@ -68,3 +70,9 @@ class Faculty(User):
     salary: int = 0
     level: Level = Level.pending
     dept: Department = Department.pending
+
+
+class MarksUpload(BaseModel):
+    student_id: int
+    course_code: str
+    marks: int

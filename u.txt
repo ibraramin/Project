@@ -1,4 +1,5 @@
-ID:1
+id_student:3
+id_faculty:1002
 
 [1]
 id: 1
@@ -11,9 +12,65 @@ dob: 2000-01-01
 blood_group: a+
 religion: Islam
 type: student
+pfp: pfps/default.jpeg
+semester: 1
+gpa: 0.0
+dept: Computer Science
+current_courses: ['PHY1101', 'PHY1102']
+past_courses: ['MAT1102']
+results: {'MAT1102': 0.0}
+
+[2]
+id: 1001
+password: 12
+name: hello
+address: dwada
+number: 0
+email: i@gmail.com
+dob: 2000-01-01
+blood_group: pending
+religion: pending
+type: student
+pfp: pfps/default.jpeg
+semester: 1
+gpa: 3.75
+dept: pending
+current_courses: ['MAT1102']
+past_courses: []
+results: {'MAT1102': 3.75}
+
+[3]
+id: 1002
+password: 12
+name: hasan
+address: dnauida
+number: 0
+email: hasan@gmail.com
+dob: 2000-01-01
+blood_group: a+
+religion: pending
+type: faculty
+pfp: pfps/default.jpeg
+salary: 100000
+level: Lecturer
+dept: pending
+
+[4]
+id: 3
+password: 100100
+name: Imran
+address: dawda
+number: 0
+email: ibrar@gmail.com
+dob: 2000-01-01
+blood_group: a+
+religion: Islam
+type: student
+pfp: pfps/default.jpeg
 semester: 1
 gpa: 0.0
 dept: Computer Science
 current_courses: []
 past_courses: []
+results: {}
 
